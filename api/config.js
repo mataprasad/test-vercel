@@ -1,9 +1,17 @@
-import { generateAppSettingsFileFromEnv } from '../buildx/common-utils';
+const { generateAppSettingsFileFromEnv } = require("../buildx/common-utils");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
+  try {
+    const config = await generateAppSettingsFileFromEnv();
 
-  const config = await generateAppSettingsFileFromEnv();
+    if (!config) {
+      res.status(500).json({ error: "Failed to generate app config" });
+      return;
+    }
 
-  res.setHeader("Content-Type", "application/javascript");
-  res.send(config);
-}
+    res.setHeader("Content-Type", "application/javascript");
+    res.status(200).send(config);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

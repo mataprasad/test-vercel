@@ -1,10 +1,10 @@
-import { fileURLToPath } from "url";
-import fs from "fs/promises";
-import path from "path";
-import dotenv from "dotenv";
+const fs = require('fs').promises;
+const path = require('path');
+const dotenv = require('dotenv');
+
 dotenv.config();
 
-export const generateAppSettingsFileFromEnv = async function () {
+const generateAppSettingsFileFromEnv = async function () {
   try {
     const env = process.env;
 
@@ -12,8 +12,7 @@ export const generateAppSettingsFileFromEnv = async function () {
       return str.replace(/\$([A-Z_]+)/g, (match, varName) => env[varName] || match);
     }
 
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
+    const __filename = __filename || __dirname;
     const filePath = path.join(__dirname, '../', 'app-config.js.template');
 
     const data = await fs.readFile(filePath, 'utf8');
@@ -28,7 +27,4 @@ export const generateAppSettingsFileFromEnv = async function () {
   }
 };
 
-// Example usage
-// (async () => {
-//   await generateAppSettingsFileFromEnv();
-// })();
+module.exports = { generateAppSettingsFileFromEnv };
