@@ -2,11 +2,11 @@ import { generateAppSettingsFileFromEnv } from '../buildx/common-utils.js';
 
 async function handler(req, res) {
   try {
-    const template = {
+    const template = `{
     "apiUrl": "$API_BASE_URL",
     "AppName": "$APP_NAME",
     "LogoPath": "$LOGO_PATH"
-};
+}`;
     const config = await generateAppSettingsFileFromEnv(template);
 
     if (!config) {
