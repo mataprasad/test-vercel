@@ -2,7 +2,12 @@ const { generateAppSettingsFileFromEnv } = require("../buildx/common-utils");
 
 module.exports = async function handler(req, res) {
   try {
-    const config = await generateAppSettingsFileFromEnv();
+    const template = {
+    "apiUrl": "$API_BASE_URL",
+    "AppName": "$APP_NAME",
+    "LogoPath": "$LOGO_PATH"
+};
+    const config = await generateAppSettingsFileFromEnv(template);
 
     if (!config) {
       res.status(500).json({ error: "Failed to generate app config" });
