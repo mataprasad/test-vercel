@@ -13,7 +13,7 @@ async function handler(req, res) {
       res.status(500).json({ error: "Failed to generate app config" });
       return;
     }
-
+    config = `window.AppSettings = ${config};`;
     res.setHeader("Content-Type", "application/javascript");
     res.status(200).send(config);
   } catch (error) {
