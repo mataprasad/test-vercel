@@ -7,7 +7,7 @@ async function handler(req, res) {
     "AppName": "$APP_NAME",
     "LogoPath": "$LOGO_PATH"
 }`;
-    const config = await generateAppSettingsFileFromEnv(template);
+    let config = await generateAppSettingsFileFromEnv(template);
 
     if (!config) {
       res.status(500).json({ error: "Failed to generate app config" });
