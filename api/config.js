@@ -1,4 +1,4 @@
-const { generateAppSettingsFileFromEnv } = require("../buildx/common-utils");
+import { generateAppSettingsFileFromEnv } from '../buildx/common-utils.js';
 
 module.exports = async function handler(req, res) {
   try {
