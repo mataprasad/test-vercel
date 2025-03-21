@@ -1,6 +1,6 @@
 import { generateAppSettingsFileFromEnv } from '../buildx/common-utils.js';
 
-export async function handler(req, res) {
+async function handler(req, res) {
   try {
     const template = {
     "apiUrl": "$API_BASE_URL",
@@ -20,3 +20,5 @@ export async function handler(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export default handler;
